@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="秩、逆矩阵、线性方程组——溯因推理正则矩阵（可逆矩阵、非奇异矩阵）不是正则矩阵的，我们称其为奇异矩阵线性方程组的解法 消元法 Gauss-Jordan法  逆矩阵的计算方法 利用初等行变换，使得（A| I ）→（ I |A^-1^）  初等变换 笔算的步骤可以总结为： 将某一行乘以c 将某一行的c倍加到另一行上去 交换两行 以上三种操作，都可以用“乘上某个矩阵”的形式表示出来（思考一下行操作与列操">
+<meta name="keywords" content="数学,线性代数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="程序员的线性代数阅读笔记">
+<meta property="og:url" content="http://yoursite.com/2019/03/06/程序员的线性代数阅读笔记/index.html">
+<meta property="og:site_name" content="Ringleaders">
+<meta property="og:description" content="秩、逆矩阵、线性方程组——溯因推理正则矩阵（可逆矩阵、非奇异矩阵）不是正则矩阵的，我们称其为奇异矩阵线性方程组的解法 消元法 Gauss-Jordan法  逆矩阵的计算方法 利用初等行变换，使得（A| I ）→（ I |A^-1^）  初等变换 笔算的步骤可以总结为： 将某一行乘以c 将某一行的c倍加到另一行上去 交换两行 以上三种操作，都可以用“乘上某个矩阵”的形式表示出来（思考一下行操作与列操">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-24T06:05:18.582Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="程序员的线性代数阅读笔记">
+<meta name="twitter:description" content="秩、逆矩阵、线性方程组——溯因推理正则矩阵（可逆矩阵、非奇异矩阵）不是正则矩阵的，我们称其为奇异矩阵线性方程组的解法 消元法 Gauss-Jordan法  逆矩阵的计算方法 利用初等行变换，使得（A| I ）→（ I |A^-1^）  初等变换 笔算的步骤可以总结为： 将某一行乘以c 将某一行的c倍加到另一行上去 交换两行 以上三种操作，都可以用“乘上某个矩阵”的形式表示出来（思考一下行操作与列操">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/06/程序员的线性代数阅读笔记/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>程序员的线性代数阅读笔记 | Ringleaders</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ringleaders</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-schedule">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/schedule/" rel="section"><i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>日程表</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/06/程序员的线性代数阅读笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ringleaders">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ringleaders">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">程序员的线性代数阅读笔记
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-06 12:49:07" itemprop="dateCreated datePublished" datetime="2019-03-06T12:49:07+08:00">2019-03-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-24 14:05:18" itemprop="dateModified" datetime="2019-03-24T14:05:18+08:00">2019-03-24</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="秩、逆矩阵、线性方程组——溯因推理"><a href="#秩、逆矩阵、线性方程组——溯因推理" class="headerlink" title="秩、逆矩阵、线性方程组——溯因推理"></a>秩、逆矩阵、线性方程组——溯因推理</h1><h2 id="正则矩阵（可逆矩阵、非奇异矩阵）"><a href="#正则矩阵（可逆矩阵、非奇异矩阵）" class="headerlink" title="正则矩阵（可逆矩阵、非奇异矩阵）"></a>正则矩阵（可逆矩阵、非奇异矩阵）</h2><h2 id="不是正则矩阵的，我们称其为奇异矩阵"><a href="#不是正则矩阵的，我们称其为奇异矩阵" class="headerlink" title="不是正则矩阵的，我们称其为奇异矩阵"></a>不是正则矩阵的，我们称其为奇异矩阵</h2><h2 id="线性方程组的解法"><a href="#线性方程组的解法" class="headerlink" title="线性方程组的解法"></a>线性方程组的解法</h2><ul>
+<li>消元法</li>
+<li>Gauss-Jordan法</li>
+</ul>
+<h2 id="逆矩阵的计算方法"><a href="#逆矩阵的计算方法" class="headerlink" title="逆矩阵的计算方法"></a>逆矩阵的计算方法</h2><ul>
+<li>利用初等行变换，使得（A| I ）→（ I |A^-1^）</li>
+</ul>
+<h2 id="初等变换"><a href="#初等变换" class="headerlink" title="初等变换"></a>初等变换</h2><ul>
+<li>笔算的步骤可以总结为：<ul>
+<li>将某一行乘以c</li>
+<li>将某一行的c倍加到另一行上去</li>
+<li>交换两行</li>
+<li>以上三种操作，都可以用“乘上某个矩阵”的形式表示出来（思考一下行操作与列操作）</li>
+</ul>
+</li>
+<li>从空间的角度思考可得：<ul>
+<li>将第i行乘以c，行列式的值为原来的c倍</li>
+<li>将第j行乘以c加到第i行，行列式的值不变</li>
+<li>交换第ij行，行列式的正负号改变</li>
+</ul>
+</li>
+<li>注意：当进行初等变换的时候，要么只进行初等行变换，要么只进行初等列变换，两者不能同时进行（PS<strong>从初等变换矩阵的角度去考虑</strong>）</li>
+</ul>
+<h2 id="核（零空间）"><a href="#核（零空间）" class="headerlink" title="核（零空间）"></a>核（零空间）</h2><ul>
+<li>对于给定的A，在映射的作用下，满足Ax=O的x的集合称为A的核，记作Ker A</li>
+<li>核又称作零空间</li>
+</ul>
+<h2 id="像（陪域）"><a href="#像（陪域）" class="headerlink" title="像（陪域）"></a>像（陪域）</h2><ul>
+<li>对于给定的A，将x进行各种不同的变换，在A的作用下，y=Ax构成的集合，称为A的像</li>
+<li>像又称作陪域</li>
+</ul>
+<h2 id="Ker-A为原空间（定义域，即x所在的空间的一部分），Im-A-为目标空间（值域，也就是y所在空间的一部分）"><a href="#Ker-A为原空间（定义域，即x所在的空间的一部分），Im-A-为目标空间（值域，也就是y所在空间的一部分）" class="headerlink" title="Ker A为原空间（定义域，即x所在的空间的一部分），Im A 为目标空间（值域，也就是y所在空间的一部分）"></a>Ker A为原空间（定义域，即x所在的空间的一部分），Im A 为目标空间（值域，也就是y所在空间的一部分）</h2><h2 id="维数"><a href="#维数" class="headerlink" title="维数"></a>维数</h2><ul>
+<li>如果最多能取得n个线性无关的向量，则空间的维数是n</li>
+</ul>
+<h2 id="维数定理"><a href="#维数定理" class="headerlink" title="维数定理"></a>维数定理</h2><ul>
+<li>对于m*n矩阵A，有dim Ker A + dim Im A = n，其中dim X表示X 的维数</li>
+</ul>
+<h2 id="线性子空间"><a href="#线性子空间" class="headerlink" title="线性子空间"></a>线性子空间</h2><ul>
+<li>对加法和数乘运算封闭的空间</li>
+</ul>
+<h2 id="线性无关、线性相关"><a href="#线性无关、线性相关" class="headerlink" title="线性无关、线性相关"></a>线性无关、线性相关</h2><ul>
+<li>如果对于数u~1~，u~2~，……，u~n~，当u~1~a~1~ + u~2~a~2~ + ……+ u~n~a~n~ = 0成立时，有u~1~ = u~2~ = ……= u~n~ ，则称a~1~ ，……，a~n~ 是线性无关的</li>
+<li>A的各个列向量线性无关——不压缩</li>
+<li>A的各个列向量线性相关——压缩</li>
+</ul>
+<h2 id="秩"><a href="#秩" class="headerlink" title="秩"></a>秩</h2><ul>
+<li><p>Im A 的维数dim Im A就是矩阵A的秩</p>
+</li>
+<li><p>秩的基本性质</p>
+<ul>
+<li><p>rank A≤min{m,n}</p>
+<p>原因：目标空间是m维的，而包含其中的Im A无论如何也不可能让自己的维数超过m，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">原空间是n维，把空间全体都通过A映射过去，无论如何也不可能超过子集原来的维数n</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在乘以可逆矩阵之后，维数不发生变化</p>
+</li>
+<li><p>对于一般的矩阵A，B 有：</p>
+<p>rank(BA)≤min{rank(A),rank(B)}</p>
+<p>原因：第一阶段：原空间在A的作用下，移动到空间V上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">第二阶段：空间V在B的作用下，移动到空间W，所求即空间W的维数</span><br></pre></td></tr></table></figure>
+<p>通过第一阶段，空间V的维数已经变成了rankA，接下来无论B如何变化，最终的维数不会超过rankA，另外，在第二阶段中，就算空间全体都通过B进行了变换，最终为数也不会超过B，所以V作为空间的一部分，在B的作用下进行变化后，维数自然也不会超过rank B</p>
+</li>
+<li><p>转置矩阵的秩不变</p>
+</li>
+</ul>
+<h2 id="逆矩阵存在的条件"><a href="#逆矩阵存在的条件" class="headerlink" title="逆矩阵存在的条件"></a>逆矩阵存在的条件</h2><ul>
+<li>是不是压缩扁平化，如果是，那么不存在其逆矩阵，否则存在逆矩阵</li>
+</ul>
+</li>
+</ul>
+<h1 id="用空间的语言表达向量、矩阵和行列式"><a href="#用空间的语言表达向量、矩阵和行列式" class="headerlink" title="用空间的语言表达向量、矩阵和行列式"></a>用空间的语言表达向量、矩阵和行列式</h1><h2 id="三者的含义"><a href="#三者的含义" class="headerlink" title="三者的含义"></a>三者的含义</h2><ul>
+<li>向量<br>有向线段（带有方向的线段）、空间内的点</li>
+<li>矩阵<br>空间到空间的映射</li>
+<li>行列式<br>上面的映射对应的“体积扩大率”</li>
+</ul>
+<h2 id="向量"><a href="#向量" class="headerlink" title="向量"></a>向量</h2><ul>
+<li>最直接的定义——把数值罗列起来就是向量</li>
+<li>强调分量的个数——N维向量</li>
+<li>没有特别说明的情况下，我们说的向量就是列向量</li>
+<li>相同维数的向量之间的加法</li>
+<li>向量的数乘</li>
+</ul>
+<h2 id="空间"><a href="#空间" class="headerlink" title="空间"></a>空间</h2><ul>
+<li>类似于二维向量（5,3）可以在二维平面上用一个点进行表示，三维向量也可以用三维空间中的一个点进行表示，像这样强调向量的位置的时候，也称为 <strong>位置向量</strong></li>
+<li><strong>向量不仅可以用点进行表示，也可以用有向线段进行表示</strong>，这样加法就可以解释成线段的连接，数乘就可以解释为线段的伸缩</li>
+</ul>
+<h2 id="基底"><a href="#基底" class="headerlink" title="基底"></a>基底</h2><ul>
+<li>线性空间（向量空间）——一个只用加法和数乘就能“运算”的世界（即对加法和数乘封闭）</li>
+<li>如果有两个向量e1和e2<strong>不共线</strong>，有向量v：沿着e1走3步，沿着e2走两步，那么这组向量e1和e2就叫做基底，沿着各个基准向量走的步数就叫做坐标。e1和e2就称为<strong>基向量</strong></li>
+<li>线性组合</li>
+<li>若任意向量x都可以用e1，e2……en的线性组合来表示，并且表示方法唯一，那么（e1，e2，……，en）称为基底</li>
+<li>维数<ul>
+<li>维数=基向量的个数=坐标的分量数</li>
+</ul>
+</li>
+</ul>
+<h2 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h2><ul>
+<li>暂时的定义： 把数排列成长方形就是矩阵</li>
+<li>方阵：行数和列数相同</li>
+<li>相同规模（行数列数都相等，即同型矩阵）的矩阵之间可以进行加法</li>
+<li>矩阵的数乘</li>
+<li>矩阵相乘<ul>
+<li>矩阵与向量的乘积是向量</li>
+<li>矩阵的列数（宽度）为“输入”的向量维数，行数（高度）为“输出”的向量维数</li>
+<li>计算的时候，就好比把输入的列向量放倒（开车！？）然后将对应的元素分别相乘</li>
+</ul>
+</li>
+<li>矩阵就是一种表示平直关系（函数关系）的便利手段</li>
+<li>由于aij可以理解为“<strong>自变量j对结果i所施加的影响</strong>”，这样理解的话，自变量对因变量整体的影响表现出来就是矩阵</li>
+<li>矩阵就是映射<ul>
+<li>矩阵确定了从一个向量到另外一个向量的映射</li>
+<li>映射相同则矩阵相同</li>
+</ul>
+</li>
+<li>矩阵的乘积<ul>
+<li>将右边的矩阵按列分割开来，将每一列看做一个列向量</li>
+<li>将分割开的列向量与左边的矩阵做乘法（矩阵与向量的乘法）</li>
+<li>把所得的结果拼接起来</li>
+</ul>
+</li>
+<li>行向量在左边，列向量在右边</li>
+</ul>
+<h2 id="矩阵的乘方"><a href="#矩阵的乘方" class="headerlink" title="矩阵的乘方"></a>矩阵的乘方</h2><ul>
+<li>矩阵的乘方相当于映射的迭代<ul>
+<li>例如：A^3^ 表示先A再A再次A的操作，A^n^ 表示反复n次的操作</li>
+<li>注意：矩阵没有平方和公式。（AB）^2^ 有时候不等于A^2^B^2^</li>
+<li><strong>A^0^=I</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="零矩阵、单位矩阵、对角矩阵"><a href="#零矩阵、单位矩阵、对角矩阵" class="headerlink" title="零矩阵、单位矩阵、对角矩阵"></a>零矩阵、单位矩阵、对角矩阵</h2><ul>
+<li><p>零矩阵：</p>
+<ul>
+<li><p>所有元素都是0的矩阵称为</p>
+<p>零矩阵</p>
+<p>，</p>
+<ul>
+<li>在A≠O，B≠O的情况下，也有可能得到BA=O</li>
+<li>就算A≠O，也有可能得到A^2^=O</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>单位矩阵</p>
+<ul>
+<li>从左上到右下方向的对角元素是1，其余全部是0的矩阵称为<strong>单位矩阵</strong></li>
+<li>单位矩阵表示什么都不做的映射</li>
+</ul>
+</li>
+<li><p>对角矩阵</p>
+<ul>
+<li>从左上到右下的对角线上的值称为对角元素，其他元素称为非对角元素，当非对角元素全部为0时，该矩阵称为<strong>对角矩阵</strong></li>
+<li>对角矩阵表示的映射是沿着坐标轴伸缩，其中对角元素就是各轴伸缩的倍率</li>
+</ul>
+</li>
+</ul>
+<h2 id="逆矩阵"><a href="#逆矩阵" class="headerlink" title="逆矩阵"></a>逆矩阵</h2><ul>
+<li>逆矩阵=逆映射</li>
+<li>可以理解为每个方向“反其道而行之”</li>
+</ul>
+<h2 id="分块矩阵"><a href="#分块矩阵" class="headerlink" title="分块矩阵"></a>分块矩阵</h2><ul>
+<li>分块矩阵的加法<ul>
+<li>类似于矩阵的加法</li>
+</ul>
+</li>
+<li>分块矩阵的数乘<ul>
+<li>类似于矩阵的数乘</li>
+</ul>
+</li>
+<li>分块矩阵的乘法<ul>
+<li>可以在分块以后把各个“大元素”当做数值，直接套用普通的矩阵运算法则</li>
+</ul>
+</li>
+<li>分块对角矩阵<ul>
+<li>对角区块的概念</li>
+<li>分块对角矩阵的好处在于，我们可以将整个映射看作是由多个独立的变换组成的，其中每个变换对应一个区块</li>
+<li>分块对角矩阵的乘方类似于矩阵的乘方</li>
+<li>分块对角矩阵的乘方类似于对角矩阵的乘方</li>
+</ul>
+</li>
+</ul>
+<h2 id="坐标变换"><a href="#坐标变换" class="headerlink" title="坐标变换"></a>坐标变换</h2><ul>
+<li>坐标变换可以用“乘以方阵A”的形式进行表示，这里的A存在逆矩阵</li>
+<li>乘以某个存在逆矩阵的方阵A，也可以用坐标变换来表示</li>
+</ul>
+<h2 id="转置矩阵"><a href="#转置矩阵" class="headerlink" title="转置矩阵"></a>转置矩阵</h2><ul>
+<li>共轭转置<ul>
+<li>矩阵转置以后所有的复数都写成其共轭复数</li>
+</ul>
+</li>
+</ul>
+<h2 id="应当时刻注意矩阵的规模（大小、行数、列数）"><a href="#应当时刻注意矩阵的规模（大小、行数、列数）" class="headerlink" title="应当时刻注意矩阵的规模（大小、行数、列数）"></a>应当时刻注意矩阵的规模（大小、行数、列数）</h2><h2 id="行列式-体积扩大率"><a href="#行列式-体积扩大率" class="headerlink" title="行列式=体积扩大率"></a>行列式=体积扩大率</h2><ul>
+<li>一般情况下，对于n阶方阵A，“n维版本的体积的扩大率”，就是行列式</li>
+<li>图形扁平化的情况下，体积扩大率为0</li>
+<li>对图形进行镜像反转变换的情况下， 可以用负的扩大率来表示</li>
+</ul>
+<h2 id="行列式的性质"><a href="#行列式的性质" class="headerlink" title="行列式的性质"></a>行列式的性质</h2><ul>
+<li>简单性质<ul>
+<li>|AB|=|A|*|B|</li>
+<li>意义： 首先映射B造成了det B倍的变换，接下来映射A带来了det A倍的变化，于是先B后A自然就造成了体积扩大det A*det B倍</li>
+</ul>
+</li>
+<li>转置矩阵的行列式与原行列式相等</li>
+<li>行列互换以后，行列式的所有性质依然成立</li>
+<li>关键性质<ul>
+<li>多重线性<ul>
+<li>相当于可以把行列式中的因子提出来，集合上可以理解为一叠扑克牌，它的高变为原来的10倍，相当于体积变成原来的10倍</li>
+<li>根据多重线性性质，n阶矩阵A乘以常数c以后，所得矩阵的行列式是原来矩阵A行列式的c^n^ 倍，注意不是c倍</li>
+</ul>
+</li>
+<li>交替性<ul>
+<li>交换行列式中的两行或者两列时，体积保持不变（行列式的绝对值不变），行列式正负不变</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>行列式的计算方法——笔算法（高斯消去法）</li>
+<li>行列式按行（列）展开与逆矩阵</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数学/" rel="tag"># 数学</a>
+          
+            <a href="/tags/线性代数/" rel="tag"># 线性代数</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/05/Hexo-博客搭建/" rel="next" title="Hexo 博客搭建">
+                <i class="fa fa-chevron-left"></i> Hexo 博客搭建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/09/C-多态/" rel="prev" title="C++多态">
+                C++多态 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Ringleaders">
+            
+              <p class="site-author-name" itemprop="name">Ringleaders</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#秩、逆矩阵、线性方程组——溯因推理"><span class="nav-number">1.</span> <span class="nav-text">秩、逆矩阵、线性方程组——溯因推理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#正则矩阵（可逆矩阵、非奇异矩阵）"><span class="nav-number">1.1.</span> <span class="nav-text">正则矩阵（可逆矩阵、非奇异矩阵）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不是正则矩阵的，我们称其为奇异矩阵"><span class="nav-number">1.2.</span> <span class="nav-text">不是正则矩阵的，我们称其为奇异矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性方程组的解法"><span class="nav-number">1.3.</span> <span class="nav-text">线性方程组的解法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逆矩阵的计算方法"><span class="nav-number">1.4.</span> <span class="nav-text">逆矩阵的计算方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初等变换"><span class="nav-number">1.5.</span> <span class="nav-text">初等变换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#核（零空间）"><span class="nav-number">1.6.</span> <span class="nav-text">核（零空间）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#像（陪域）"><span class="nav-number">1.7.</span> <span class="nav-text">像（陪域）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ker-A为原空间（定义域，即x所在的空间的一部分），Im-A-为目标空间（值域，也就是y所在空间的一部分）"><span class="nav-number">1.8.</span> <span class="nav-text">Ker A为原空间（定义域，即x所在的空间的一部分），Im A 为目标空间（值域，也就是y所在空间的一部分）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#维数"><span class="nav-number">1.9.</span> <span class="nav-text">维数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#维数定理"><span class="nav-number">1.10.</span> <span class="nav-text">维数定理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性子空间"><span class="nav-number">1.11.</span> <span class="nav-text">线性子空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性无关、线性相关"><span class="nav-number">1.12.</span> <span class="nav-text">线性无关、线性相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#秩"><span class="nav-number">1.13.</span> <span class="nav-text">秩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逆矩阵存在的条件"><span class="nav-number">1.14.</span> <span class="nav-text">逆矩阵存在的条件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用空间的语言表达向量、矩阵和行列式"><span class="nav-number">2.</span> <span class="nav-text">用空间的语言表达向量、矩阵和行列式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#三者的含义"><span class="nav-number">2.1.</span> <span class="nav-text">三者的含义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#向量"><span class="nav-number">2.2.</span> <span class="nav-text">向量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空间"><span class="nav-number">2.3.</span> <span class="nav-text">空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基底"><span class="nav-number">2.4.</span> <span class="nav-text">基底</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵"><span class="nav-number">2.5.</span> <span class="nav-text">矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵的乘方"><span class="nav-number">2.6.</span> <span class="nav-text">矩阵的乘方</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#零矩阵、单位矩阵、对角矩阵"><span class="nav-number">2.7.</span> <span class="nav-text">零矩阵、单位矩阵、对角矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逆矩阵"><span class="nav-number">2.8.</span> <span class="nav-text">逆矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分块矩阵"><span class="nav-number">2.9.</span> <span class="nav-text">分块矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#坐标变换"><span class="nav-number">2.10.</span> <span class="nav-text">坐标变换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转置矩阵"><span class="nav-number">2.11.</span> <span class="nav-text">转置矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应当时刻注意矩阵的规模（大小、行数、列数）"><span class="nav-number">2.12.</span> <span class="nav-text">应当时刻注意矩阵的规模（大小、行数、列数）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#行列式-体积扩大率"><span class="nav-number">2.13.</span> <span class="nav-text">行列式=体积扩大率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#行列式的性质"><span class="nav-number">2.14.</span> <span class="nav-text">行列式的性质</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ringleaders</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=7.0.1"></script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

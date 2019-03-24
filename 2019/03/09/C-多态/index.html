@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="多态基础多态是面向对象语言的一种特征，让您能够以类似的方式处理不同类似的对象 为何需要多态行为1234567891011121314151617181920212223#include &amp;lt;iostream&amp;gt;using namespace std;class Fish &amp;#123;	public:    	void Swim() &amp;#123;        cout &amp;lt;&amp;lt; &quot;">
+<meta name="keywords" content="C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++多态">
+<meta property="og:url" content="http://yoursite.com/2019/03/09/C-多态/index.html">
+<meta property="og:site_name" content="Ringleaders">
+<meta property="og:description" content="多态基础多态是面向对象语言的一种特征，让您能够以类似的方式处理不同类似的对象 为何需要多态行为1234567891011121314151617181920212223#include &amp;lt;iostream&amp;gt;using namespace std;class Fish &amp;#123;	public:    	void Swim() &amp;#123;        cout &amp;lt;&amp;lt; &quot;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-24T06:19:47.373Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++多态">
+<meta name="twitter:description" content="多态基础多态是面向对象语言的一种特征，让您能够以类似的方式处理不同类似的对象 为何需要多态行为1234567891011121314151617181920212223#include &amp;lt;iostream&amp;gt;using namespace std;class Fish &amp;#123;	public:    	void Swim() &amp;#123;        cout &amp;lt;&amp;lt; &quot;">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/09/C-多态/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>C++多态 | Ringleaders</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ringleaders</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-schedule">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/schedule/" rel="section"><i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>日程表</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/09/C-多态/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ringleaders">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ringleaders">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++多态
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-09 08:06:30" itemprop="dateCreated datePublished" datetime="2019-03-09T08:06:30+08:00">2019-03-09</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-24 14:19:47" itemprop="dateModified" datetime="2019-03-24T14:19:47+08:00">2019-03-24</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="多态基础"><a href="#多态基础" class="headerlink" title="多态基础"></a>多态基础</h1><p>多态是面向对象语言的一种特征，让您能够以类似的方式处理不同类似的对象</p>
+<h2 id="为何需要多态行为"><a href="#为何需要多态行为" class="headerlink" title="为何需要多态行为"></a>为何需要多态行为</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;using namespace std;</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fish</span> &#123;</span></span><br><span class="line">	<span class="keyword">public</span>:    </span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Swim</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Fish Swims"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tuna</span> :</span><span class="keyword">public</span> Fish &#123;</span><br><span class="line">	<span class="keyword">public</span>:  <span class="function"><span class="keyword">void</span> <span class="title">Swim</span><span class="params">()</span> </span>&#123;        </span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Tuna Swims"</span> &lt;&lt; <span class="built_in">endl</span>;    </span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MakeFishSwim</span><span class="params">(Fish&amp; inputFish)</span> </span></span><br><span class="line"><span class="function"></span>&#123;    </span><br><span class="line">	inputFish.Swim();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;    </span><br><span class="line">	Tuna myDinner;    </span><br><span class="line">	myDinner.Swim();    </span><br><span class="line">	MakeFishSwim(myDinner);    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<blockquote>
+<p>Tuna swims!</p>
+<p>Fish swims!</p>
+</blockquote>
+<p>虽然传入的Tuna对象，MakeFishSwim(Fish&amp;)也将其视为Fish,进而调用<br>Fish::Swim。输出表明，虽然传入的是Tuna对象，但是得到的是Fish的输出。</p>
+<h2 id="使用虚函数实现多态行为（基类中多了virtual）"><a href="#使用虚函数实现多态行为（基类中多了virtual）" class="headerlink" title="使用虚函数实现多态行为（基类中多了virtual）"></a>使用虚函数实现多态行为（基类中多了virtual）</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fish</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Swim</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Fish swims!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tuna</span> :</span><span class="keyword">public</span> Fish &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Swim</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Tuna swims!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Carp</span> :</span><span class="keyword">public</span> Fish &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Swim</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Carp swims!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MakeFishSwim</span><span class="params">(Fish&amp; inputFish)</span> </span>&#123;</span><br><span class="line">    inputFish.Swim();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Tuna myDinner;</span><br><span class="line">    Carp myLunch;</span><br><span class="line">    MakeFishSwim(myDinner);</span><br><span class="line">    MakeFishSwim(myLunch);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<blockquote>
+<p>Tuna swims!</p>
+<p>Carp swims!</p>
+</blockquote>
+<p>首先，根本没有调用Fish::Swim( ),因为存在覆盖版本的Tuna::Swim( )和Carp::Swim( ),它们优先于声明为虚函数的Fish::Swim( )</p>
+<p>这就是多态：<strong>将派生类视为基类对象，并执行派生类的Swim()实现</strong></p>
+<h2 id="为何需要虚构造函数"><a href="#为何需要虚构造函数" class="headerlink" title="为何需要虚构造函数"></a>为何需要虚构造函数</h2><p>首先分析如下代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fish</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Fish() &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Constructed Fish"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ~Fish() &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Destroyed Fish"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tuna</span> :</span><span class="keyword">public</span> Fish &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Tuna() &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Constructed Tuna"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ~Tuna() &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Destructed Tuna"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DeleteFishMemory</span><span class="params">(Fish *pFish)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">delete</span> pFish;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Allocating a Tuna on the free store:"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    Tuna* pTuna = <span class="keyword">new</span> Tuna;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Deleting the Tuna:"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    DeleteFishMemory(pTuna);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Instantiating a Tuna on the stack"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    Tuna myDinner;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Automatic destruction as it goes out of scope"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<blockquote>
+<p>Allocating a Tuna on the free store:<br>Constructed Fish<br>Constructed Tuna<br>Deleting the Tuna:<br>Destroyed Fish<br>Instantiating a Tuna on the stack<br>Constructed Fish<br>Constructed Tuna<br>Automatic destruction as it goes out of scope<br>Destructed Tuna<br>Destroyed Fish</p>
+</blockquote>
+<p>注意到由于使用了关键字new，在自由存储区中构造了Tuna和Fish，但delete没有调用Tuna的析构函数，而只调用了Fish的析构函数；而构造和析构局部变量myDinner时，调用了基类和派生类的构造和析构过程。</p>
+<p>这个程序表明，对于使用new在自由存储区中实例化的派生类对象，如果将其赋给基类指针，并通过该指针调用delete，将不会调用派生类的析构函数，这可能会导致资源未释放，内存泄漏等问题。必须引起重视！</p>
+<p>要避免这种问题，可将析构函数声明为虚函数。即：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">virtual</span> ~Fish() &#123; <span class="built_in">cout</span>&lt;&lt;<span class="string">"Destructed Fish"</span>&lt;&lt;<span class="built_in">endl</span>; &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>务必将基类的析构函数声明为虚函数</strong></p>
+<h2 id="虚函数的工作原理——理解虚函数表"><a href="#虚函数的工作原理——理解虚函数表" class="headerlink" title="虚函数的工作原理——理解虚函数表"></a>虚函数的工作原理——理解虚函数表</h2><p>参考<a href="http://www.killerwhale.xyz/2019/03/10/%E8%99%9A%E6%8B%9F%E8%A1%A8/index.html" target="_blank" rel="noopener">虚拟表</a></p>
+<h2 id="抽象基类和纯虚函数"><a href="#抽象基类和纯虚函数" class="headerlink" title="抽象基类和纯虚函数"></a>抽象基类和纯虚函数</h2><p>不能实例化的基类被成为抽象基类，这样的基类只有一个用途，那就是从它派生出其他类。在C++中，要创建抽象基类，可声明纯虚函数。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AbstractBase</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">DoSomething</span><span class="params">()</span></span>=<span class="number">0</span>;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该声明告诉编译器，AbstractBase的派生类必须实现方法DoSomething（）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fish</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Swim</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tuna</span> :</span><span class="keyword">public</span> Fish &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Swim</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Tuna swims fast in the sea!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Carp</span> :</span><span class="keyword">public</span> Fish &#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Swim</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Carp swims slow in the lake!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MakeFishSwim</span><span class="params">(Fish&amp; inputFish)</span> </span>&#123;</span><br><span class="line">    inputFish.Swim();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Carp myLunch;</span><br><span class="line">    Tuna myDinner;</span><br><span class="line">    MakeFishSwim(myLunch);</span><br><span class="line">    MakeFishSwim(myDinner);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<blockquote>
+<p>Carp swims slow in the lake!<br>Tuna swims fast in the sea!</p>
+</blockquote>
+<h2 id="使用虚继承解决菱形问题"><a href="#使用虚继承解决菱形问题" class="headerlink" title="使用虚继承解决菱形问题"></a>使用虚继承解决菱形问题</h2><p>分析如下代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Animal() &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Animal constructor"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Mammal</span> :</span><span class="keyword">public</span> Animal &#123;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bird</span> :</span><span class="keyword">public</span> Animal &#123;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Reptail</span> :</span><span class="keyword">public</span> Animal &#123;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Platypus</span> :</span><span class="keyword">public</span> Mammal, <span class="keyword">public</span> Bird, <span class="keyword">public</span> Reptail &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Platypus() &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Platypus constructor"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Platypus duckBilledP;</span><br><span class="line">    <span class="comment">//unconmment next line to see compile failure</span></span><br><span class="line">    <span class="comment">//age is ambigous as there are thrre instances of base Animal</span></span><br><span class="line">    <span class="comment">//duckBilledP.age=25;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<blockquote>
+<p>Animal constructor<br>Animal constructor<br>Animal constructor<br>Platypus constructor</p>
+</blockquote>
+<p>输出表明，由于采用了多继承，而且Platypus的全部三个基类都是从Animal类派生而来的，因此创建Platypus实例时，自动创建了三个Animal实例。如果您愿意，可以分别设置这三个属性：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">duckBilledP.Mammal::Animal::age=<span class="number">25</span>;</span><br><span class="line">duckBilledP.Bird::Animal::age=<span class="number">25</span>;</span><br><span class="line">duckBilledP.Reptile::Animal::age=<span class="number">25</span>;</span><br></pre></td></tr></table></figure>
+<p>显然，鸭嘴兽应该只有一个age属性，但您希望Platypus类以共有方式继承Mammal/Bird/Reptile.解决方案是使用虚继承。<strong>如果派生类可能被用作基类，派生它最好使用关键字virtual</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Derived1</span>:</span> <span class="keyword">public</span> <span class="keyword">virtual</span> Base&#123;</span><br><span class="line">    <span class="comment">//...members and functions</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Derived2</span>:</span> <span class="keyword">public</span> <span class="keyword">virtual</span> Base&#123;</span><br><span class="line">    <span class="comment">//...memebers and functions</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如下列出了更佳的Platypus类声明</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Animal() &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Animal constructor"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Mammal</span> :</span><span class="keyword">public</span> <span class="keyword">virtual</span> Animal &#123;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bird</span> :</span><span class="keyword">public</span> <span class="keyword">virtual</span> Animal &#123;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Reptail</span> :</span><span class="keyword">public</span> <span class="keyword">virtual</span> Animal &#123;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Platypus</span> <span class="title">final</span> :</span><span class="keyword">public</span> Mammal, <span class="keyword">public</span> Bird, <span class="keyword">public</span> Reptail &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Platypus() &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Platypus constructor"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Platypus duckBilledP;</span><br><span class="line">    <span class="comment">//no compile error as there is only one Animal::age</span></span><br><span class="line">    duckBilledP.age = <span class="number">25</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<blockquote>
+<p>Animal constructor<br>Platypus constructor</p>
+</blockquote>
+<p>如果将这里的输出与上面那个程序进行比较，会发现构造的Animal实例数减少到了1个，这表明之构造了一个Platypus。这是因为从Animalbb类派生Mammal/Bird/Reptile类时，使用了关键字virtual，这样Platypus继承这些类的时候，每个Platypus实例只包含一个Animal实例。另外，注意到使用了关键字final以禁止将Platypus类作基类。</p>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>C++关键字virtual的含义随上下文而异，对其含义总结如下:</p>
+<ul>
+<li>在函数声明中，virtual意味着当基类指针指向派生类对象时，通过它可调用派生类的相应函数。</li>
+<li>从Base类派生出Derrived1和Derrived2类时，如果使用了关键字virtual，则意味着再从Derived1和Derived2派生出Derived3时，每个Derived3实例只包含一个Base实例。</li>
+</ul>
+<p>也就是说，关键字virtual被用于实现两个不同的概念。</p>
+<h2 id="表明覆盖意图限定符override"><a href="#表明覆盖意图限定符override" class="headerlink" title="表明覆盖意图限定符override"></a>表明覆盖意图限定符override</h2><p>前面的基类Fish都包含虚函数Swim()，如下面的代码所示：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fish</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Swim</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Fish swims"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>假设派生类Tuna要定义函数Swim()，但特征标稍微不同——程序员本想覆盖Fish::Swim(),但不小心插入了关键字const ，如下所示:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tuna</span> :</span><span class="keyword">public</span> Fish &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Swim</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Tuna swims!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在这种情况下，函数Tuna::Swim()实际上并不会覆盖Finish::Swim()，这是因为Tuna::Swim()包含const，导致它们的特征标不同。然而这些代码能通过编译，导致程序员误以为他在Tuna类中成狗的覆盖了函数的Swim()。从C++11起程序员可以使用限定符override来<strong>核实被覆盖的函数在基类中是否被声明为虚的：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tuna</span> :</span> <span class="keyword">public</span> Fish &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Swim</span><span class="params">()</span> <span class="keyword">const</span> override </span>&#123; <span class="comment">//！！！Error: no virtual fn with this sig in Fish</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Tuna swims"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>换而言之，override提供了一种强大的途径，让程序员能够明确表达对基类的虚函数u进行覆盖的意图，进而让编译器做如下检查：</p>
+<ul>
+<li>基类函数是否是虚函数？</li>
+<li>基类中相应虚函数的特征标是否与派生类中被声明为override的函数完全相同？</li>
+</ul>
+<h2 id="使用final来禁止覆盖函数"><a href="#使用final来禁止覆盖函数" class="headerlink" title="使用final来禁止覆盖函数"></a>使用final来禁止覆盖函数</h2><p>被声明为final 的类不能用作基类，童谣，被声明为final的虚函数，不能再派生类中进行覆盖</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tuna</span>:</span><span class="keyword">public</span> Fish&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="comment">//override Fish::Swim and make this final</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Swim</span><span class="params">()</span> override final</span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"Tuna swims!"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>您可以继承这个版本的Tuna类，但不能进一步覆盖函数Swim():</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BluefinTuna</span> <span class="title">final</span>:</span><span class="keyword">public</span> Tuna&#123;<span class="keyword">public</span>:    <span class="function"><span class="keyword">void</span> <span class="title">Swim</span><span class="params">()</span></span>&#123;<span class="comment">//Error: Swim() was final in Tuna, cannot override    &#125;&#125;</span></span><br></pre></td></tr></table></figure>
+<p>我们声明BluefinTuna时，也使用了关键字final，这将禁止BluefinTunal类用作基类，因此下面的代码将导致错误：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FailedDerivation</span>:</span><span class="keyword">public</span> BluefinTuna&#123;&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="可将复制构造函数声明为虚函数吗？？？"><a href="#可将复制构造函数声明为虚函数吗？？？" class="headerlink" title="可将复制构造函数声明为虚函数吗？？？"></a>可将复制构造函数声明为虚函数吗？？？</h2><p>从技术上说，C++不支持虚复制构造函数。但，如果能实现虚复制构造函数，则创建一个基类指针集合（如静态数组，其中的每个元素指向不同的派生类对象）：<br>C++<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Fish * pFish[3];</span><br><span class="line">pFish[0]=new Tuna();</span><br><span class="line">pFish[1]=new Carp();</span><br><span class="line">pFish[2]=new Trout();</span><br></pre></td></tr></table></figure></p>
+<p>并将其赋值给另一个相同类型的数组，虽然是通过Fish指针调用的复制构造函数，但复制指向的派生类对象，并将其进行深复制。</p>
+<p><strong>然而，这只是一个美好的梦想。</strong></p>
+<p>根本不可能实现虚复制构造函数，因为在基类方法声明中使用关键字virtual时，表示它将被派生类的实现覆盖，这种多态性是在<strong>运行阶段</strong>实现的。而<strong>构造函数只能创建固定类型的对象，不具备多态性</strong>，因此C++不允许使用虚复制构造函数。</p>
+<p>虽然如此，但存在一种不错的解决方案，就是定义自己的克隆函数来实现上述目的：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fish</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> Fish* <span class="title">Clone</span><span class="params">()</span> <span class="keyword">const</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tuna</span> :</span><span class="keyword">public</span> Fish &#123;</span><br><span class="line">    <span class="comment">//...other memebers</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">Tuna* <span class="title">Clone</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123;<span class="comment">//virtual clone function</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Tuna(*<span class="keyword">this</span>);<span class="comment">//return new Tuna that is copy of this</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>虚函数Clone模拟了虚复制构造函数，但是需要显式使用</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fish</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> Fish* <span class="title">Clone</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Swim</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">virtual</span> ~Fish() &#123;&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tuna</span> :</span><span class="keyword">public</span> Fish &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">Fish* <span class="title">Clone</span><span class="params">()</span>override </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Tuna(*<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Swim</span><span class="params">()</span>override final </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Tuna swims fast in the sea"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BluefinTuna</span> <span class="title">final</span> :</span> <span class="keyword">public</span> Tuna &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">Fish* <span class="title">Clone</span><span class="params">()</span> override </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BluefinTuna(*<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//Cannot override Tuna::Swim as it is "final" in Tuna</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Carp</span> <span class="title">final</span> :</span><span class="keyword">public</span> Fish &#123;</span><br><span class="line">    <span class="function">Fish* <span class="title">Clone</span><span class="params">()</span> override </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Carp(*<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Swim</span><span class="params">()</span> override final </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Carp swims slow in the lake"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> ARRAY_SIZE = <span class="number">4</span>;</span><br><span class="line">    Fish* myFishes[ARRAY_SIZE] = &#123; <span class="literal">NULL</span> &#125;;</span><br><span class="line">    myFishes[<span class="number">0</span>] = <span class="keyword">new</span> Tuna();</span><br><span class="line">    myFishes[<span class="number">1</span>] = <span class="keyword">new</span> Carp();</span><br><span class="line">    myFishes[<span class="number">2</span>] = <span class="keyword">new</span> BluefinTuna();</span><br><span class="line">    myFishes[<span class="number">3</span>] = <span class="keyword">new</span> Carp();</span><br><span class="line">    Fish* myNewFishes[ARRAY_SIZE];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; ARRAY_SIZE; ++index) &#123;</span><br><span class="line">        myNewFishes[index] = myFishes[index]-&gt;Clone();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//invoke a virtual method to check</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; ARRAY_SIZE; ++index) &#123;</span><br><span class="line">        myNewFishes[index]-&gt;Swim();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//memory cleanup</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; ARRAY_SIZE; ++index) &#123;</span><br><span class="line">        <span class="keyword">delete</span> myFishes[index];</span><br><span class="line">        <span class="keyword">delete</span> myNewFishes[index];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h2><h3 id="Q：抽象基类都不能被实例化，它有何用途呢？"><a href="#Q：抽象基类都不能被实例化，它有何用途呢？" class="headerlink" title="Q：抽象基类都不能被实例化，它有何用途呢？"></a>Q：抽象基类都不能被实例化，它有何用途呢？</h3><blockquote>
+<p>抽象基类并非为实例化而创建的，而近充当基类。它包含纯虚函数，指定了派生类必须实现哪些函数，可以充当接口</p>
+</blockquote>
+<h3 id="Q：抽象基类中，可以定义成员函数和成员属性吗？"><a href="#Q：抽象基类中，可以定义成员函数和成员属性吗？" class="headerlink" title="Q：抽象基类中，可以定义成员函数和成员属性吗？"></a>Q：抽象基类中，可以定义成员函数和成员属性吗？</h3><blockquote>
+<p>当然可以，但是这样的抽象基类也不能被实例化， 因为它至少包含一个纯虚函数，派生类必须实现该函数</p>
+</blockquote>
+<h3 id="Q-在继承层次中，需要在所有虚函数声明中都是用关键字virtual，还是只需要在基类中这样做？"><a href="#Q-在继承层次中，需要在所有虚函数声明中都是用关键字virtual，还是只需要在基类中这样做？" class="headerlink" title="Q: 在继承层次中，需要在所有虚函数声明中都是用关键字virtual，还是只需要在基类中这样做？"></a>Q: 在继承层次中，需要在所有虚函数声明中都是用关键字virtual，还是只需要在基类中这样做？</h3><blockquote>
+<p>只需要在基类的函数声明中使用关键字virtual即可</p>
+</blockquote>
+<h3 id="Q-基类总应包含一个虚析构函数吗？"><a href="#Q-基类总应包含一个虚析构函数吗？" class="headerlink" title="Q: 基类总应包含一个虚析构函数吗？"></a>Q: 基类总应包含一个虚析构函数吗？</h3><blockquote>
+<p>最好如此。如果编写了如下代码;</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; Base * pBase = <span class="keyword">new</span> Derived();</span><br><span class="line">&gt; <span class="keyword">delete</span> pBase;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>则仅当析构函数~Base（）被声明为虚函数时，delete pBase才会调用析构函数~Derived（）。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/06/程序员的线性代数阅读笔记/" rel="next" title="程序员的线性代数阅读笔记">
+                <i class="fa fa-chevron-left"></i> 程序员的线性代数阅读笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/10/类-构造函数/" rel="prev" title="类-构造函数">
+                类-构造函数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Ringleaders">
+            
+              <p class="site-author-name" itemprop="name">Ringleaders</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#多态基础"><span class="nav-number">1.</span> <span class="nav-text">多态基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为何需要多态行为"><span class="nav-number">1.1.</span> <span class="nav-text">为何需要多态行为</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用虚函数实现多态行为（基类中多了virtual）"><span class="nav-number">1.2.</span> <span class="nav-text">使用虚函数实现多态行为（基类中多了virtual）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为何需要虚构造函数"><span class="nav-number">1.3.</span> <span class="nav-text">为何需要虚构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚函数的工作原理——理解虚函数表"><span class="nav-number">1.4.</span> <span class="nav-text">虚函数的工作原理——理解虚函数表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象基类和纯虚函数"><span class="nav-number">1.5.</span> <span class="nav-text">抽象基类和纯虚函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用虚继承解决菱形问题"><span class="nav-number">1.6.</span> <span class="nav-text">使用虚继承解决菱形问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注意"><span class="nav-number">1.6.1.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表明覆盖意图限定符override"><span class="nav-number">1.7.</span> <span class="nav-text">表明覆盖意图限定符override</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用final来禁止覆盖函数"><span class="nav-number">1.8.</span> <span class="nav-text">使用final来禁止覆盖函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可将复制构造函数声明为虚函数吗？？？"><span class="nav-number">1.9.</span> <span class="nav-text">可将复制构造函数声明为虚函数吗？？？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他问题"><span class="nav-number">1.10.</span> <span class="nav-text">其他问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Q：抽象基类都不能被实例化，它有何用途呢？"><span class="nav-number">1.10.1.</span> <span class="nav-text">Q：抽象基类都不能被实例化，它有何用途呢？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q：抽象基类中，可以定义成员函数和成员属性吗？"><span class="nav-number">1.10.2.</span> <span class="nav-text">Q：抽象基类中，可以定义成员函数和成员属性吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-在继承层次中，需要在所有虚函数声明中都是用关键字virtual，还是只需要在基类中这样做？"><span class="nav-number">1.10.3.</span> <span class="nav-text">Q: 在继承层次中，需要在所有虚函数声明中都是用关键字virtual，还是只需要在基类中这样做？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-基类总应包含一个虚析构函数吗？"><span class="nav-number">1.10.4.</span> <span class="nav-text">Q: 基类总应包含一个虚析构函数吗？</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ringleaders</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=7.0.1"></script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
