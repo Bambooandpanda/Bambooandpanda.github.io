@@ -378,7 +378,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/26/归并排序的C-实现/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/27/快速排序的C-实现/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Ringleader">
@@ -398,7 +398,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/03/26/归并排序的C-实现/" class="post-title-link" itemprop="url">归并排序的C++实现</a>
+                <a href="/2019/03/27/快速排序的C-实现/" class="post-title-link" itemprop="url">快速排序的C++实现</a>
               
             
           </h1>
@@ -423,7 +423,7 @@
                 
               
 
-              <time title="创建时间：2019-03-26 21:54:53 / 修改时间：22:43:07" itemprop="dateCreated datePublished" datetime="2019-03-26T21:54:53+08:00">2019-03-26</time>
+              <time title="创建时间：2019-03-27 22:29:49 / 修改时间：23:58:09" itemprop="dateCreated datePublished" datetime="2019-03-27T22:29:49+08:00">2019-03-27</time>
             
 
             
@@ -483,7 +483,197 @@
         
           
             <p>
-              /* Merge sort in C++ */#include &lt;cstdio&gt;#include &lt;iostream&gt;using namespace std;// Function to Merge Arrays L and R into A.// lefCount = nu
+              要点
+快速排序也使用分治模式，因此也是用递归。
+快速排序按照原址工作
+快速排序的渐近时间介于最坏情况和平均情况之间，尤其是，快速排序的最坏的运行时间是θ（n^2），但是它的平均情况下的运行时间好一些θ（nlgn）
+
+思路
+分解
+​    首先选择任意一个元素，称为主元。比主元大的放在一侧，比主元小的
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/27/快速排序的C-实现/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/26/归并排序的C-实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ringleader">
+      <meta itemprop="description" content="I'm the reason for that!">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ringleader">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/26/归并排序的C-实现/" class="post-title-link" itemprop="url">归并排序的C++实现</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-26 21:54:53" itemprop="dateCreated datePublished" datetime="2019-03-26T21:54:53+08:00">2019-03-26</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-27 22:24:17" itemprop="dateModified" datetime="2019-03-27T22:24:17+08:00">2019-03-27</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法基础/" itemprop="url" rel="index"><span itemprop="name">算法基础</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              大佬的代码/* Merge sort in C++ */#include &lt;cstdio&gt;#include &lt;iostream&gt;using namespace std;// Function to Merge Arrays L and R into A.// lefCount
               ...
             </p>
           <!--noindex-->
@@ -1965,205 +2155,6 @@ lambda表达式根据算法接受一元谓词还是二元谓词，我们传递�
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/17/第三周计划与总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ringleader">
-      <meta itemprop="description" content="I'm the reason for that!">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ringleader">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/17/第三周计划与总结/" class="post-title-link" itemprop="url">第三周计划与总结</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-17 23:08:16" itemprop="dateCreated datePublished" datetime="2019-03-17T23:08:16+08:00">2019-03-17</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-03-24 16:46:44" itemprop="dateModified" datetime="2019-03-24T16:46:44+08:00">2019-03-24</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/大一下计划与总结/" itemprop="url" rel="index"><span itemprop="name">大一下计划与总结</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              英语六级
- Word List 9 
- Word List 10
- Word List 11
- Word List 12
- Word List 13
-
-C++
- 回顾类、IO库、顺序容器
- 泛型算法
- 关联容器
- 动态内存
- 拷贝复制
- 重载运算符与类型转换
- 理解函数对象
- lambda表达式
- 
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/03/17/第三周计划与总结/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2212,7 +2203,7 @@ C++
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-count">26</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
