@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: true,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="面向对象程序设计概述对象要使用OOP，一定要清楚对象的三个主要特征：  对象的行为可以对对象施加哪些操作，或可以对对象施加哪些方法 对象的状态当施加那些方法时，对象如何响应 对象标识如何辨别具有相同行为与状态的不同对象  识别类 识别类的简单规则是在分析问题的过程中寻找名词，而方法对应着动词。“找名词和动词”原则只是一种经验，在创建类的时候，哪些名词和动词是重要的完全取决于个人的开发经验  对象与">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java核心技术卷I 对象和类">
+<meta property="og:url" content="http://yoursite.com/2019/04/20/Java核心技术卷I-对象和类/index.html">
+<meta property="og:site_name" content="Ringleader">
+<meta property="og:description" content="面向对象程序设计概述对象要使用OOP，一定要清楚对象的三个主要特征：  对象的行为可以对对象施加哪些操作，或可以对对象施加哪些方法 对象的状态当施加那些方法时，对象如何响应 对象标识如何辨别具有相同行为与状态的不同对象  识别类 识别类的简单规则是在分析问题的过程中寻找名词，而方法对应着动词。“找名词和动词”原则只是一种经验，在创建类的时候，哪些名词和动词是重要的完全取决于个人的开发经验  对象与">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-20T12:49:21.001Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java核心技术卷I 对象和类">
+<meta name="twitter:description" content="面向对象程序设计概述对象要使用OOP，一定要清楚对象的三个主要特征：  对象的行为可以对对象施加哪些操作，或可以对对象施加哪些方法 对象的状态当施加那些方法时，对象如何响应 对象标识如何辨别具有相同行为与状态的不同对象  识别类 识别类的简单规则是在分析问题的过程中寻找名词，而方法对应着动词。“找名词和动词”原则只是一种经验，在创建类的时候，哪些名词和动词是重要的完全取决于个人的开发经验  对象与">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/20/Java核心技术卷I-对象和类/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Java核心技术卷I 对象和类 | Ringleader</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ringleader</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">I'm the reason for that!</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-schedule">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/schedule/" rel="section"><i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>日程表</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+    
+    
+
+    
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/20/Java核心技术卷I-对象和类/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ringleader">
+      <meta itemprop="description" content="I'm the reason for that!">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ringleader">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java核心技术卷I 对象和类
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-20 15:38:11 / 修改时间：20:49:21" itemprop="dateCreated datePublished" datetime="2019-04-20T15:38:11+08:00">2019-04-20</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java学习/" itemprop="url" rel="index"><span itemprop="name">Java学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="面向对象程序设计概述"><a href="#面向对象程序设计概述" class="headerlink" title="面向对象程序设计概述"></a>面向对象程序设计概述</h1><h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><p>要使用OOP，一定要清楚对象的三个主要特征：</p>
+<ul>
+<li>对象的行为<br>可以对对象施加哪些操作，或可以对对象施加哪些方法</li>
+<li>对象的状态<br>当施加那些方法时，对象如何响应</li>
+<li>对象标识<br>如何辨别具有相同行为与状态的不同对象</li>
+</ul>
+<h2 id="识别类"><a href="#识别类" class="headerlink" title="识别类"></a>识别类</h2><ul>
+<li>识别类的简单规则是在分析问题的过程中寻找名词，而方法对应着动词。“找名词和动词”原则只是一种经验，在创建类的时候，哪些名词和动词是重要的完全取决于个人的开发经验</li>
+</ul>
+<h2 id="对象与对象变量"><a href="#对象与对象变量" class="headerlink" title="对象与对象变量"></a>对象与对象变量</h2><ul>
+<li>Java程序设计语言中，使用构造器构造新实例。</li>
+<li>如果需要的话，可以给对象传递一个方法，如System.out.println(new Date());或者，也可以将一个方法应用于刚刚创建的对象。如String s=new Date().toString()</li>
+<li>一定要认识到，一个对象变量并没有实际包含一个对象，而是<strong>仅仅引用了一个对象</strong></li>
+<li>可以显式地将对象变量设置为null，表明这个对象变量目前没有引用任何对象</li>
+<li>如果将一个方法应用于一个值为null的对象上，那么就会产生运行时错误。</li>
+</ul>
+<h2 id="隐式参数与显式参数"><a href="#隐式参数与显式参数" class="headerlink" title="隐式参数与显式参数"></a>隐式参数与显式参数</h2><ul>
+<li>在每个方法中，关键字this表示隐式参数。有些程序员更偏爱这样的风格，因为这样可以将实例域与局部变量明显地区分开来。</li>
+<li>如果需要返回一个可变对象的引用，应该对它进行克隆。（因为前面说过，一个对象变量没有实际包含一个对象，而是仅仅引用了一个对象，如果返回的不是它的克隆，返回的引用的空间，就会破坏原来的封装性）</li>
+</ul>
+<h2 id="私有方法"><a href="#私有方法" class="headerlink" title="私有方法"></a>私有方法</h2><ul>
+<li>应该将所有的数据域都设置为私有的。</li>
+<li>有时候可能希望一个计算代码划分成若干的对立的辅助方法，通常，这些辅助方法不应该成为共有接口的的一部分，最好将这样的方法设计为private</li>
+<li>然而，只要方法是私有的，类的设计者就可以确信：它的不会被外部的其他类操作调用，可以将其删去，如果方法是公有的，就不能将其删去，因为其他代码很有可能依赖它</li>
+</ul>
+<h2 id="final"><a href="#final" class="headerlink" title="final"></a>final</h2><ul>
+<li>可以将实例域定义为final。构建对象时必须初始化这样的域。也就是说，必须确保在一个构造器执行之后，这个域的值被设定，并且在后面的操作中，不能再对它进行修改。</li>
+<li><strong>final修饰符大都应用于==基本类型域==，或不可变的类域</strong>（如果类中的每个方法都不会改变其对象，这种类就是不可变的类）</li>
+<li>final关键字只是表示存储在某个变量中的对象引用不会再指向其他对象。不过这个对象可以改变。</li>
+</ul>
+<h2 id="静态域"><a href="#静态域" class="headerlink" title="静态域"></a>静态域</h2><ul>
+<li><p>如果将域定义为static，每个类中只有一个这样的域，而每个对象对于所有的实例域都有自己的一份拷贝。<br>例如</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> nextId=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    . . .</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样，每个雇员对象都有一个自己的id域，但是这个类的所有实例将共享一个nextId域。</p>
+</li>
+</ul>
+<h2 id="静态常量"><a href="#静态常量" class="headerlink" title="静态常量"></a>静态常量</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Math</span></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">double</span> PI=<span class="number">3.1415926</span>;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在程序中，可以采用Math.PI的形式获得这个常量</p>
+<h2 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h2><ul>
+<li>静态方法是一种不能像对象是是操作的方法。例如Math.pow(a,b)方法就是一个静态方法。运算时不使用任何Math对象，换句话中，没有隐式的参数。可以认为静态方法是一种没有this的方法</li>
+<li>在下面两种情况下使用静态方法<ul>
+<li>一个方法不需要访问对象状态，其所有参数都是通过显式参数提供</li>
+<li>一个方法只需要访问类的静态域</li>
+</ul>
+</li>
+</ul>
+<h2 id="main方法"><a href="#main方法" class="headerlink" title="main方法"></a>main方法</h2><ul>
+<li>每个类都可以有个main方法。这是一个常用于对类进行单元测试的技巧。如果想要独立地测试类，只需要执行java className</li>
+</ul>
+<h2 id="按值调用"><a href="#按值调用" class="headerlink" title="按值调用"></a>按值调用</h2><ul>
+<li>Java程序设计语言总是采用按值调用。对象引用也是按值传递的</li>
+<li>总结一下Java中方法参数的使用情况<ul>
+<li>一个方法不能修改一个基本数据类型的参数</li>
+<li>一个方法可以改变一个对象参数的状态</li>
+<li>一个方法不能让对象参数引用一个新的对象</li>
+</ul>
+</li>
+</ul>
+<h2 id="重载"><a href="#重载" class="headerlink" title="重载"></a>重载</h2><ul>
+<li>重载和C++的重载相同</li>
+</ul>
+<h2 id="默认初始化"><a href="#默认初始化" class="headerlink" title="默认初始化"></a>默认初始化</h2><ul>
+<li>如果在构造器中没有显式地给域赋予初值，那么就会自动地赋为默认值：数值为0，布尔值为false，对象引用为null。然而，只有缺少程序设计经验的人才会这么做。确实，如果不明确地对域进行初始化，就会影响程序代码的可读性。</li>
+<li>必须明确地初始化方法中的局部变量，但是如果没有初始化类中的域，将会被自动初始化为默认值</li>
+</ul>
+<h2 id="无参数的构造器"><a href="#无参数的构造器" class="headerlink" title="无参数的构造器"></a>无参数的构造器</h2><ul>
+<li>如果在编写一个类的时候没有编写构造器，那么系统就会提供一个无参数的构造器。这个构造器将所有的实例域设置为默认值。</li>
+<li>如果类中提供了至少一个构造器，但是没有提供无参数的构造器，则在构造对象时如果没有提供参数就会被视为不合法。</li>
+</ul>
+<h2 id="显式域初始化"><a href="#显式域初始化" class="headerlink" title="显式域初始化"></a>显式域初始化</h2><ul>
+<li><p>与C++不同，可以在类定义中，直接将一个值赋给任何域。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name=<span class="string">""</span>;</span><br><span class="line">    . . .</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="参数名"><a href="#参数名" class="headerlink" title="参数名"></a>参数名</h2><ul>
+<li>一个常用的技巧，在参数前加上a</li>
+<li>可以采用this的方法访问实例域</li>
+</ul>
+<h2 id="调用另一个构造器"><a href="#调用另一个构造器" class="headerlink" title="调用另一个构造器"></a>调用另一个构造器</h2><ul>
+<li><p>关键字this引用方法的隐式参数。然而，这个方法还有另外一个意义。如果构造器的第一个语句形如this（…），这个构造器将调用同一个类的另一个构造器。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(<span class="keyword">double</span> s)</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(<span class="string">"Employee"</span>+nextId,s);</span><br><span class="line">    nextId++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="初始化块"><a href="#初始化块" class="headerlink" title="初始化块"></a>初始化块</h2><ul>
+<li><p>初始化数据域的方法，Java还有第三种机制，称为初始化块。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> nextId;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> salary;</span><br><span class="line">    </span><br><span class="line">    &#123;</span><br><span class="line">        id=nextId;</span><br><span class="line">        nextId++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(String n,<span class="keyword">double</span> s)</span></span>&#123;</span><br><span class="line">        name=n;</span><br><span class="line">        salary=s;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">()</span></span>&#123;</span><br><span class="line">        name=<span class="string">""</span>;</span><br><span class="line">        salary=<span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种机制不是必须的，也不常见。通常会直接将初始化代码放在构造器中。</p>
+</li>
+<li><p>调用构造器的具体处理步骤：</p>
+<ul>
+<li>所有数据域被初始化为默认值</li>
+<li>按照在类声明中出现的次序，依次执行所有域初始化语句和初始化块</li>
+<li>如果构造器第一行调用了第二个构造器，则执行第二个构造器主体</li>
+<li>执行这个构造器的主题</li>
+</ul>
+</li>
+<li><p>如果对类的静态域进行初始化的代码比较复杂，那么可以使用静态的初始化块。将代码放在一个块中，并标记关键字static。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span>&#123;</span><br><span class="line">    Random generator=<span class="keyword">new</span> Random();</span><br><span class="line">    nextId=generator.nextInt(<span class="number">1000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="类的导入"><a href="#类的导入" class="headerlink" title="类的导入"></a>类的导入</h2><ul>
+<li><p>第一种方式<br>在每个类名之前添加完整的包名</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.time.LocalDate today=java.time.LocalDate.now();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第二种方式<br>使用import语句，它应当位于源文件的顶部。但位于package的后面</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br></pre></td></tr></table></figure>
+<p><strong>需要注意的是，只能使用星号导入一个包，不能使用import java.*或者import.java.*.*</strong></p>
+<p>如果不同包的名称发生冲突，可以采用增加一个特定的import语句解决这个问题。import java.util.Date;如果这两个类都要使用，就在每个类名前面加上完整的包名。</p>
+</li>
+</ul>
+<h2 id="静态导入"><a href="#静态导入" class="headerlink" title="静态导入"></a>静态导入</h2><ul>
+<li><p>静态导入就是导入静态方法和静态域。这样就可以直接使用类的静态方法和静态域，不用再加前缀了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.lang.System.*;</span><br><span class="line">out.println(<span class="string">"GoodBye"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="将类放入包中"><a href="#将类放入包中" class="headerlink" title="将类放入包中"></a>将类放入包中</h2><p>要想将一个类放入包中，就必须将包的名字放在源文件的开头，包中定义类的代码之前。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.horstmann.corejava</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果没有在源文件中放置package语句，这个源文件中的类就被放置再一个默认包中。默认包是一个没有名字的包。将包中的文件放到与完整的包名匹配的子目录中。例如com.hosrtmann.corejava包中的所有源文件应该被放置在子目录com//hosrtman//corejava中。编译器也将类文件放在相同的目录结构中。想要编译一个程序，只需要改变基目录.</p>
+<h2 id="包作用域"><a href="#包作用域" class="headerlink" title="包作用域"></a>包作用域</h2><ul>
+<li>如果在定义类的时候没有指定public或者private，这个部分可以被同一个包中的所有方法访问。</li>
+</ul>
+<h2 id="文档注释"><a href="#文档注释" class="headerlink" title="文档注释"></a>文档注释</h2><ul>
+<li>@para 变量描述</li>
+<li>@return 描述</li>
+<li>@throws 类描述</li>
+<li>@author 姓名</li>
+<li>@version 版本</li>
+<li>@since 这里的text可以是对引入特性的版本描述</li>
+<li>@deprecated 标记将对类，方法或者变量添加一个不再使用的注释</li>
+</ul>
+<h2 id="包与概述注释"><a href="#包与概述注释" class="headerlink" title="包与概述注释"></a>包与概述注释</h2><ul>
+<li><p>用/*<em>    </em>/文档注释界定就可以了。但是，如果要产生包注释，就需要在每个包目录中添加一个单独的文件，有如下两种方法</p>
+<ul>
+<li>提供一个package.html的HTML文件</li>
+<li>提供一个package-info.java的文件。这个文件必须包含一个初始的/*<em> </em>/界定的javadoc注释。它不应该包含更多的代码或者注释</li>
+</ul>
+<h2 id="类设计技巧"><a href="#类设计技巧" class="headerlink" title="类设计技巧"></a>类设计技巧</h2><ul>
+<li><p>一定要保证数据私有<br><strong>这是最重要的</strong></p>
+</li>
+<li><p>一定要对数据进行初始化<br>Java不对局部变量进行初始化，但是会对对象的实例域进行初始化，最好不要依赖于系统的默认值</p>
+</li>
+<li><p>不要再类中使用过多的基本类型<br>这就是说，用其他的类代替多个相关的基本类型的使用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> String street;</span><br><span class="line"><span class="keyword">private</span> String city;</span><br><span class="line"><span class="keyword">private</span> String state;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> zip;</span><br></pre></td></tr></table></figure>
+<p>这就可以用一个称为Address的类替换上面的实例域。</p>
+</li>
+<li><p>不是所有的域都要独立的域访问器和更改器<br>比如那些应当一旦设定不能更改的实例域。</p>
+</li>
+<li><p>将职责过多的类进行分解</p>
+</li>
+<li><p>类名和方法名要体现他们的职责</p>
+</li>
+<li><p>优先使用不可变的类<br>因为这样，如果多个线程试图同时更新一个对象，就会发生并发更改，这样的结果是不可预料的。如果类是不能改变的。就可以安全的在多个线程间共享对象。</p>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/15/第八周计划与总结/" rel="next" title="第七周计划与总结">
+                <i class="fa fa-chevron-left"></i> 第七周计划与总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Ringleader">
+            
+              <p class="site-author-name" itemprop="name">Ringleader</p>
+              <div class="site-description motion-element" itemprop="description">I'm the reason for that!</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">33</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#面向对象程序设计概述"><span class="nav-number">1.</span> <span class="nav-text">面向对象程序设计概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对象"><span class="nav-number">1.1.</span> <span class="nav-text">对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#识别类"><span class="nav-number">1.2.</span> <span class="nav-text">识别类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象与对象变量"><span class="nav-number">1.3.</span> <span class="nav-text">对象与对象变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隐式参数与显式参数"><span class="nav-number">1.4.</span> <span class="nav-text">隐式参数与显式参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#私有方法"><span class="nav-number">1.5.</span> <span class="nav-text">私有方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#final"><span class="nav-number">1.6.</span> <span class="nav-text">final</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态域"><span class="nav-number">1.7.</span> <span class="nav-text">静态域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态常量"><span class="nav-number">1.8.</span> <span class="nav-text">静态常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态方法"><span class="nav-number">1.9.</span> <span class="nav-text">静态方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#main方法"><span class="nav-number">1.10.</span> <span class="nav-text">main方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按值调用"><span class="nav-number">1.11.</span> <span class="nav-text">按值调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重载"><span class="nav-number">1.12.</span> <span class="nav-text">重载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#默认初始化"><span class="nav-number">1.13.</span> <span class="nav-text">默认初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#无参数的构造器"><span class="nav-number">1.14.</span> <span class="nav-text">无参数的构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显式域初始化"><span class="nav-number">1.15.</span> <span class="nav-text">显式域初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数名"><span class="nav-number">1.16.</span> <span class="nav-text">参数名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调用另一个构造器"><span class="nav-number">1.17.</span> <span class="nav-text">调用另一个构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化块"><span class="nav-number">1.18.</span> <span class="nav-text">初始化块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类的导入"><span class="nav-number">1.19.</span> <span class="nav-text">类的导入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态导入"><span class="nav-number">1.20.</span> <span class="nav-text">静态导入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将类放入包中"><span class="nav-number">1.21.</span> <span class="nav-text">将类放入包中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包作用域"><span class="nav-number">1.22.</span> <span class="nav-text">包作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文档注释"><span class="nav-number">1.23.</span> <span class="nav-text">文档注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包与概述注释"><span class="nav-number">1.24.</span> <span class="nav-text">包与概述注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类设计技巧"><span class="nav-number">1.25.</span> <span class="nav-text">类设计技巧</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+    
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ringleader</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=7.0.1"></script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
